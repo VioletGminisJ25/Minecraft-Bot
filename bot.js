@@ -16,7 +16,9 @@ app.get('/', (req, res) => {
   res.send('Your Bot Is Ready! Subscribe My Youtube: <a href="https://youtube.com/@H2N_OFFICIAL?si=UOLwjqUv-C1mWkn4">H2N OFFICIAL</a><br>Link Web For Uptime: <a href="' + currentUrl + '">' + currentUrl + '</a>');
 }); 
 
-app.listen(3000);
+app.listen(3000, '0.0.0.0', () => {
+  logger.info('Web server running on http://0.0.0.0:3000');
+});
 
 function createBot() {
    const bot = mineflayer.createBot({
