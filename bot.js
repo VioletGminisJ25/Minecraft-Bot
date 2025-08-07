@@ -193,6 +193,32 @@ function createBot() {
 
    bot.on("login", () => {
       console.log("Bot logged in successfully");
+      console.log("Waiting for spawn event after login...");
+      
+      // Timeout para detectar si spawn nunca llega
+      const spawnTimeout = setTimeout(() => {
+         console.log("⚠️  WARNING: Spawn event not received after 60 seconds!");
+         console.log("This might indicate a server issue or connection problem.");
+      }, 60000);
+      
+      // Cancelar timeout cuando spawn finalmente ocurra
+      bot.once("spawn", () => {
+         clearTimeout(spawnTimeout);
+      });
+   });
+
+   bot.on("update_health", (health, food) => {
+      console.log("Health/food update received - getting closer to spawn");
+   });
+
+   bot.on("game_state_change", (oldState, newState) => {
+      console.log(`Game state changed from ${oldState} to ${newState}`);
+   });
+
+   bot.on("packet", (data, meta) => {
+      if (meta.name === 'position') {
+         console.log("Position packet received - spawn should happen soon");
+      }
    });
 
    bot.on("error", (err) => {
