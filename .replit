@@ -15,10 +15,6 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "which node"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
 args = "npm install"
 
 [[workflows.workflow.tasks]]
