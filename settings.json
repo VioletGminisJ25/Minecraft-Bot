@@ -1,14 +1,14 @@
 {
   "bot-account": {
-    "username": "H2N.DEV",
+    "username": "bot",
     "password": "",
     "type": "offline"
   },
 
   "server": {
-    "ip": "HaiLord1207.aternos.me",
-    "port": 30869,
-    "version": "1.19.3"
+    "ip": "Huhu007.aternos.me",
+    "port": 39095,
+    "version": "1.21.5"
   },
 
   "position": {
