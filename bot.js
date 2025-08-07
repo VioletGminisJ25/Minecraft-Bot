@@ -26,6 +26,14 @@ app.listen(5000, "0.0.0.0", () => {
 });
 
 function createBot() {
+   console.log("Creating bot with config:", {
+      username: config["bot-account"]["username"],
+      host: config.server.ip,
+      port: config.server.port,
+      version: config.server.version,
+      auth: config["bot-account"]["type"]
+   });
+   
    const bot = mineflayer.createBot({
       username: config["bot-account"]["username"],
       password: config["bot-account"]["password"],
@@ -34,16 +42,26 @@ function createBot() {
       port: config.server.port,
       version: config.server.version,
    });
-   console.log("Bot Created");
+   console.log("Bot Created - mineflayer.createBot() completed");
 
+   console.log("Loading pathfinder plugin...");
    bot.loadPlugin(pathfinder);
+   console.log("Pathfinder plugin loaded");
+   
+   console.log("Loading minecraft-data...");
    const mcData = require("minecraft-data")(bot.version);
+   console.log("minecraft-data loaded");
+   
+   console.log("Creating default movements...");
    const defaultMove = new Movements(bot, mcData);
+   console.log("Default movements created");
    //bot.settings.colorsEnabled = false;
    //bot.pathfinder.setMovements(defaultMove);
 
-   console.log("Bot Loaded Plugin");
+   console.log("Bot Loaded Plugin - Setting up event listeners...");
+   console.log("Waiting for spawn event...");
    bot.once("spawn", () => {
+      console.log("SPAWN EVENT TRIGGERED!");
       logger.info("Bot joined to the server");
       if (config.utils["auto-auth"].enabled) {
          logger.info("Started auto-auth module");
@@ -169,8 +187,21 @@ function createBot() {
       logger.warn(`Bot was kicked from the server. Reason: ${reasonText}`);
    });
 
+   bot.on("connect", () => {
+      console.log("Bot connected to server");
+   });
+
+   bot.on("login", () => {
+      console.log("Bot logged in successfully");
+   });
+
    bot.on("error", (err) => {
+      console.log("Bot error occurred:", err.message);
       logger.error(`${err.message}`);
+   });
+
+   bot.on("end", (reason) => {
+      console.log("Bot connection ended. Reason:", reason);
    });
 }
 
