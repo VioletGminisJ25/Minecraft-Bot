@@ -16,8 +16,8 @@ app.get('/', (req, res) => {
   res.send('Your Bot Is Ready! Subscribe My Youtube: <a href="https://youtube.com/@H2N_OFFICIAL?si=UOLwjqUv-C1mWkn4">H2N OFFICIAL</a><br>Link Web For Uptime: <a href="' + currentUrl + '">' + currentUrl + '</a>');
 }); 
 
-app.listen(3000, '0.0.0.0', () => {
-  logger.info('Web server running on http://0.0.0.0:3000');
+app.listen(5000, '0.0.0.0', () => {
+  logger.info('Web server running on http://0.0.0.0:5000');
 });
 
 function createBot() {
@@ -50,6 +50,7 @@ function createBot() {
 
          logger.info(`Authentication commands executed`);
       }
+
 
       if (config.utils['chat-messages'].enabled) {
          logger.info('Started chat-messages module');
@@ -163,9 +164,9 @@ function createBot() {
    }
    );
 
-   bot.on('error', (err) =>
+   bot.on('error', (err) => {
       logger.error(`${err.message}`)
-   );
+   });
 }
 
 function circleWalk(bot, radius) {
