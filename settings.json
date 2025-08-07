@@ -2,7 +2,7 @@
   "bot-account": {
     "username": "H2N.DEV",
     "password": "",
-    "type": "mojang"
+    "type": "offline"
   },
 
   "server": {
